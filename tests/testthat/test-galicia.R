@@ -14,9 +14,6 @@ test_that("galicia", {
     dimension("concept", "metric", "Concept") %>%
     dimension("value", "value", "value")
 
-  res <- compress(x, .plan)
-  expect_true(inherits(res, "jsonstat.data"))
-
   .extension <- list(id = 3,
                      name = "asdfdsfsd",
                      lol = TRUE,
@@ -36,14 +33,14 @@ test_that("galicia", {
                 extension = .extension)
   expect_true(inherits(.dataset, "jsonstat.dataset"))
 
-  .jsonstat <- as.jsonstat(.dataset)
+  .jsonstat <- toJSON(.dataset)
   expect_true(inherits(.jsonstat, "json"))
 
   .collection <- as.collection(.dataset, label = "Comparison",
                                href = "https://github.com/zedoul/jsonstat")
   expect_true(inherits(.collection, "jsonstat.collection"))
 
-  .jsonstat <- as.jsonstat(.collection)
+  .jsonstat <- toJSON(.collection)
   expect_true(inherits(.jsonstat, "json"))
 })
 

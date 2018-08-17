@@ -45,5 +45,5 @@ x <- read.csv2("galicia.csv", sep = ",")
 .collection <- as.collection(.dataset, label = "Comparison",
                              href = "https://github.com/zedoul/jsonstat")
 
-.jsonstat <- as.jsonstat(.collection)
+.jsonstat <- toJSON(.collection)
 

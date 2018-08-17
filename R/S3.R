@@ -1,10 +1,13 @@
 #' Convert JSON-stat object into JSON-stat JSON string
 #'
 #' @param x JSON-stat object
+#' @param auto_unbox this flag marks atomic vectors in given list as a
+#'   singleton, so it will not turn into an 'array' when encoded into JSON.
+#'   FALSE by default.
 #' @return JSON output
 #' @export
-as.jsonstat <- function(x) {
-  UseMethod("as.jsonstat")
+toJSON <- function(x, auto_unbox) {
+  UseMethod("toJSON")
 }
 
 #verify <- function(x, ...) {

@@ -12,11 +12,18 @@ rng <- function(from, to) {
   }
 }
 
+#' Unbox list object
+#'
+#' This function marks atomic vectors in given list as a singleton, so that it
+#' will not turn into an 'array' when encoded into JSON.
+#'
+#' @param .list a list contains atomic vectors
+#' @importFrom jsonlite unbox
+#' @export
 autounbox <- function(.list) {
   stopifnot(inherits(.list, "list"))
-  stopifnot(!is.null(names(.list)))
 
-  for (.name in names(.list)) {
+  for (.name in rng(1, length(.list))) {
     v <- .list[[.name]]
 
     if (inherits(v, "list")) {
@@ -28,8 +35,12 @@ autounbox <- function(.list) {
       if (length(v) == 1) {
         .list[[.name]] <- jsonlite::unbox(v)
       }
+    } else if (inherits(v, "data.frame")) {
+      next
+    } else if (is.null(v)) {
+      next
     } else {
-      stop("Unexpected value")
+      stop("Unexpected value: ", .name, class(v))
     }
   }
 

@@ -275,7 +275,7 @@ library(dplyr)
 .collection &lt;- as.collection(.dataset, label = &quot;Comparison&quot;,
                              href = &quot;https://github.com/zedoul/jsonstat&quot;)
 
-.jsonstat &lt;- as.jsonstat(.collection)
+.jsonstat &lt;- toJSON(.collection)
 </code></pre>
 
 <p>You can also check its output via <a href="https://json-stat.org/format/viewer/?uri=https%3A%2F%2Fraw.githubusercontent.com%2Fzedoul%2Fjsonstat%2Fmaster%2Ftests%2Ftestthat%2Foutput%2Fgalicia_jsonstat.json">official website</a>.</p>

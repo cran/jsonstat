@@ -6,15 +6,20 @@
 #' @param href href of dataset, "" by default
 #' @param src source of dataset, NULL by default
 #' @param extension user data, NULL by default
+#' @param updated a timestamp for data, NULL by default
 #' @importFrom rlang enquos
 #' @export
 as.collection <- function(...,
                           label = "",
                           href = "",
                           src = NULL,
-                          extension = NULL) {
+                          extension = NULL,
+                          updated = NULL) {
   version = "2.0"
-  updated = as.character(Sys.time())
+  if (is.null(updated)) {
+    updated = as.character(Sys.time())
+  }
+  stopifnot(inherits(updated, "character"))
 
   v <- list()
   v$version <- jsonlite::unbox(version)
@@ -31,6 +36,9 @@ as.collection <- function(...,
 
   .dots <- list(...)
   for (.name in names(.dots)) {
+    if (is.null(.dots[[.name]])) {
+      next
+    }
     stopifnot(inherits(.dots[[.name]], "jsonstat.dataset"))
   }
   v$link$item <- unname(.dots)

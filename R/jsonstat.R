@@ -8,6 +8,9 @@
 #' Convert JSON-stat collection into JSON
 #'
 #' @param x JSON-stat collection
+#' @param auto_unbox this flag marks atomic vectors in given list as a
+#'   singleton, so it will not turn into an 'array' when encoded into JSON.
+#'   FALSE by default.
 #' @return JSON output
 #' @export
 #' @examples
@@ -31,14 +34,17 @@
 #' .collection <- as.collection(.dataset, label = "Comparison",
 #'                              href = "https://github.com/zedoul/jsonstat")
 #'
-#' .jsonstat <- as.jsonstat(.collection)
-as.jsonstat.jsonstat.collection <- function(x) {
-  jsonlite::toJSON(x, auto_unbox = F)
+#' .jsonstat <- toJSON(.collection)
+toJSON.jsonstat.collection <- function(x, auto_unbox = F) {
+  jsonlite::toJSON(x, auto_unbox = auto_unbox)
 }
 
 #' Convert JSON-stat dataset into JSON
 #'
 #' @param x JSON-stat dataset
+#' @param auto_unbox this flag marks atomic vectors in given list as a
+#'   singleton, so it will not turn into an 'array' when encoded into JSON.
+#'   FALSE by default.
 #' @return JSON output
 #' @importFrom jsonlite toJSON
 #' @export
@@ -60,9 +66,9 @@ as.jsonstat.jsonstat.collection <- function(x) {
 #'                             "in Galicia"),
 #'               href = "https://github.com/zedoul/jsonstat")
 #'
-#' .jsonstat <- as.jsonstat(.dataset)
-as.jsonstat.jsonstat.dataset <- function(x) {
-  jsonlite::toJSON(x, auto_unbox = T)
+#' .jsonstat <- toJSON(.dataset)
+toJSON.jsonstat.dataset <- function(x, auto_unbox = F) {
+  jsonlite::toJSON(x, auto_unbox = auto_unbox)
 }
 
 if(getRversion() >= "2.15.1")  utils::globalVariables(c("role"))

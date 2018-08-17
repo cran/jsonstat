@@ -1,7 +1,7 @@
 Package: jsonstat
 Type: Package
 Title: Interface to 'JSON-stat'
-Version: 0.0.1
+Version: 0.0.2
 Author: Kim Seonghyun [aut, cre]
 Maintainer: Kim Seonghyun <zedoul@gmail.com>
 Authors@R: c(
@@ -20,6 +20,6 @@ LazyData: true
 RoxygenNote: 6.0.1
 VignetteBuilder: knitr
 NeedsCompilation: no
-Packaged: 2018-08-02 07:27:47 UTC; zedoul
+Packaged: 2018-08-17 18:17:20 UTC; zedoul
 Repository: CRAN
-Date/Publication: 2018-08-02 12:40:06 UTC
+Date/Publication: 2018-08-17 20:40:03 UTC

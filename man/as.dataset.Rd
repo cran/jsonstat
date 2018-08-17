@@ -4,7 +4,8 @@
 \alias{as.dataset}
 \title{Convert data frame into JSON-stat dataset}
 \usage{
-as.dataset(x, .plan, label, href = "", src = NULL, extension = NULL)
+as.dataset(x, .plan, label, href = "", src = NULL, extension = NULL,
+  updated = NULL)
 }
 \arguments{
 \item{x}{data frame}
@@ -18,6 +19,8 @@ as.dataset(x, .plan, label, href = "", src = NULL, extension = NULL)
 \item{src}{source of dataset, NULL by default}
 
 \item{extension}{user data, NULL by default}
+
+\item{updated}{a timestamp for data, NULL by default}
 }
 \description{
 Convert data frame into JSON-stat dataset

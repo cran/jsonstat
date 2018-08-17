@@ -1,10 +1,13 @@
 #' @importFrom dplyr filter
 #' @importFrom jsonlite unbox
 compress <- function(x, .plan) {
+  if (is.null(x)) {
+    return(NULL)
+  }
   stopifnot(inherits(.plan, "jsonstat.compress.plan"))
-  #verify(.plan)
 
   value <- dplyr::filter(.plan$plan, role == "value")$dimension
+  stopifnot(length(value) == 1)
 
   i <- vapply(x, is.raw, logical(1))
   x[i] <- lapply(x[i], as.character)
@@ -16,6 +19,7 @@ compress <- function(x, .plan) {
   dimension_sizes <- vapply(dimensions, nlevels, integer(1))
   dimension_ids <- names(dimensions)
 
+  # Construct role attribute
   roles <- list(time = c(),
                 geo = c(),
                 metric = c(),
@@ -36,11 +40,13 @@ compress <- function(x, .plan) {
 
   dimension_roles <- roles
 
+  # Construct categories
   categories <- list()
   for (i in rng(1, ncol(dimensions))) {
     .name <- colnames(dimensions)[i]
     .label <- dplyr::filter(.plan$plan, dimension == .name)$label
-    .category <- list(index = unique(dimensions[, i]))
+    v <- dimensions[, i]
+    .category <- list(index = levels(v))
     categories[[.name]] <- list(label = unbox(.label),
                                 category = .category)
   }
@@ -60,6 +66,12 @@ compress <- function(x, .plan) {
 
   n <- prod(dimension_sizes)
   values <- x[[value]]
+  if (length(values) == n) {
+      values[sort_index] <- values
+  } else {
+      values <- lapply(values, unbox)
+      names(values) <- sort_index - 1
+  }
 
   .data <- list(id = dimension_ids,
                 size = dimension_sizes,

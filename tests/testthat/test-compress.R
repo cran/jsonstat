@@ -19,7 +19,7 @@ test_that("compress/as.dataset/as.collection", {
                          href = "https://raw.githubusercontent.com/zedoul/jsonstat/master/tests/testthat/output/galicia_jsonstat.json")
   expect_true(inherits(.dataset, "jsonstat.dataset"))
 
-  .jsonstat <- as.jsonstat(.dataset)
+  .jsonstat <- toJSON(.dataset)
   expect_true(inherits(.jsonstat, "json"))
 
   .dataset2 <- as.dataset(x, .plan, label = "rjstat result",
@@ -30,7 +30,7 @@ test_that("compress/as.dataset/as.collection", {
                                href = "https://github.com/zedoul/jsonstat")
   expect_true(inherits(.collection, "jsonstat.collection"))
 
-  .jsonstat <- as.jsonstat(.collection)
+  .jsonstat <- toJSON(.collection)
   expect_true(inherits(.jsonstat, "json"))
 })
 

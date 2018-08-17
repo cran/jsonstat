@@ -6,6 +6,7 @@
 #' @param href href of dataset, "" by default
 #' @param src source of dataset, NULL by default
 #' @param extension user data, NULL by default
+#' @param updated a timestamp for data, NULL by default
 #' @importFrom jsonlite unbox
 #' @export
 as.dataset <- function(x,
@@ -13,12 +14,17 @@ as.dataset <- function(x,
                        label,
                        href = "",
                        src = NULL,
-                       extension = NULL) {
+                       extension = NULL,
+                       updated = NULL) {
   stopifnot(inherits(x, "data.frame"))
   stopifnot(inherits(.plan, "jsonstat.compress.plan"))
 
   version = "2.0"
-  updated = as.character(Sys.time())
+  if (is.null(updated)) {
+    updated = as.character(Sys.time())
+  }
+  stopifnot(inherits(updated, "character"))
+
   v <- c(version = version,
          class = "dataset",
          label = label,

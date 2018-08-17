@@ -81,7 +81,7 @@ x <- read.csv2("galicia.csv", sep = ",")
 .collection <- as.collection(.dataset, label = "Comparison",
                              href = "https://github.com/zedoul/jsonstat")
 
-.jsonstat <- as.jsonstat(.collection)
+.jsonstat <- toJSON(.collection)
 ```
 
 You can also check its output via [official website](https://json-stat.org/format/viewer/?uri=https%3A%2F%2Fraw.githubusercontent.com%2Fzedoul%2Fjsonstat%2Fmaster%2Ftests%2Ftestthat%2Foutput%2Fgalicia_jsonstat.json).
